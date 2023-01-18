@@ -1,7 +1,4 @@
 pipeline {
-    agent {
-        docker { image 'public.ecr.aws/v1y9g8o3/jenkins-agent:docker' }
-    }
     options {
         skipStagesAfterUnstable()
     }
