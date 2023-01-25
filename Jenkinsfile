@@ -8,7 +8,9 @@ pipeline {
          stage('Clone repository') { 
             steps { 
                 script{
-                checkout scm
+                   container('build-agent') {
+                     checkout scm
+                   }
                 }
             }
         }
@@ -16,21 +18,25 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("underwater")
+                 container('build-agent') { 
+                    app = docker.build("underwater")
+                   }
                 }
             }
         }
         stage('Test'){
             steps {
-                 echo 'Empty'
+                 echo 'Hello, your image has been build.'
             }
         }
         stage('Deploy') {
             steps {
                 script{
+                    container('build-agent') { 
                         docker.withRegistry('https://532019373627.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-ecr-credentials') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest")
+                        }
                     }
                 }
             }
