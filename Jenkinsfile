@@ -12,7 +12,7 @@ pipeline {
                 script{
                      container('build-agent') {
                           checkout scm
-                     }
+                     
                   }
                }
             }
