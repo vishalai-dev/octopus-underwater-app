@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-                 echo 'Empty'
+                 echo 'Empty-2'
             }
         }
         stage('Deploy') {
